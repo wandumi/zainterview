@@ -39,6 +39,12 @@
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('albums') }}">Albums</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('artists') }}">Artists</a>
+                        </li>
                         <!-- Authentication Links -->
                         @guest
                             @if (Route::has('login'))
@@ -72,9 +78,7 @@
                                 </div>
                             </li>
                         @endguest
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('search_form') }}">Search</a>
-                        </li>
+
                     </ul>
                 </div>
             </div>

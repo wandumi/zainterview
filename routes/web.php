@@ -1,10 +1,12 @@
 <?php
 
-use App\Http\Controllers\Auth\ProviderController;
-use App\Http\Controllers\LastFam\LastFmController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Album\AlbumController;
+use App\Http\Controllers\Artist\ArtistController;
+use App\Http\Controllers\Auth\ProviderController;
 use App\Http\Controllers\LastFm\SearchController;
+use App\Http\Controllers\LastFam\LastFmController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,7 +30,8 @@ Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index'])-
 Route::get('/auth/{provider}/redirect', [ProviderController::class, 'redirect']);
 Route::get('/auth/{provider}/callback', [ProviderController::class, 'callback']);
 
-Route::get('/last_fm', [LastFmController::class, 'index']);
+Route::get('/artists', [ArtistController::class, 'index'])->name('artists');
+Route::get('/artists/{query}', [ArtistController::class, 'search'])->name('artist.search');
 
-Route::get('/search_form', [SearchController::class, 'index'])->name('search_form');
-Route::get('/search', [SearchController::class, 'search'])->name('search');
+Route::get('/albums', [AlbumController::class, 'index'])->name('albums');
+Route::get('/albums/{query}', [AlbumController::class, 'search'])->name('albums.search');
