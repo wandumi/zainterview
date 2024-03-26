@@ -5,8 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Album\AlbumController;
 use App\Http\Controllers\Artist\ArtistController;
 use App\Http\Controllers\Auth\ProviderController;
-use App\Http\Controllers\LastFm\SearchController;
-use App\Http\Controllers\LastFam\LastFmController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -31,7 +30,11 @@ Route::get('/auth/{provider}/redirect', [ProviderController::class, 'redirect'])
 Route::get('/auth/{provider}/callback', [ProviderController::class, 'callback']);
 
 Route::get('/artists', [ArtistController::class, 'index'])->name('artists');
-Route::get('/artists/{query}', [ArtistController::class, 'search'])->name('artist.search');
+Route::get('/artists/{query}', [ArtistController::class, 'search']);
+Route::get('/artists/show/{artist}', [ArtistController::class, 'show']);
 
 Route::get('/albums', [AlbumController::class, 'index'])->name('albums');
 Route::get('/albums/{query}', [AlbumController::class, 'search'])->name('albums.search');
+Route::get('/album/show/{album}', [AlbumController::class, 'show']);
+
+Route::view('/{any?}', 'welcome')->name('welcome')->where('any','.*');

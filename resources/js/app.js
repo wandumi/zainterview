@@ -3,10 +3,11 @@ import { createApp } from 'vue';
 
 const app = createApp({});
 
-import ArtistsComponent from './components/Search/ArtistsComponent.vue';
-app.component('artists-component', ArtistsComponent);
+import SearchArtists from './components/artists/SearchComponent.vue';
+app.component('search-artists', SearchArtists);
 
-import AlbumsComponent from './components/Search/AlbumsComponent.vue';
-app.component('albums-component', AlbumsComponent);
+import SearchAlbums from './components/albums/SearchComponent.vue';
+app.component('search-albums', SearchAlbums);
+
 
 app.mount('#app');

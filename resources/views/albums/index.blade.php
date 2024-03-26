@@ -3,12 +3,10 @@
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-8">
-                <h2>Albums</h2>
-                <div>
-                    <albums-component></albums-component>
+            <div class="col-md-12">
+                <div class="row">
+                    <search-albums></search-albums>
                 </div>
-
             </div>
         </div>
     </div>
