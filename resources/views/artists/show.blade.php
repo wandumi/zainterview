@@ -6,7 +6,7 @@
             <div class="col-md-12">
                 <div class="row">
                     @foreach ($artists as $artist)
-                        <div class="col-md-10 mb-5">
+                        <div class="col-md-12 mb-5">
                             <div class="card">
                                 <div class="card-body pb-0">
                                     <div class="row align-items-center">
@@ -72,12 +72,15 @@
                         </div>
                         <div class="col-xl-12">
                             <h3 class="mt-4">Tags</h3>
+                            <ul class="list-inline mr-3">
+                                @foreach ($artist['tags']['tag'] as $tag)
+                                    <li class="list-inline-item mt-2"><a class="btn btn-outline-secondary"
+                                            href="{{ $tag['url'] }}">
+                                            {{ $tag['name'] }}
+                                        </a></li>
+                                @endforeach
 
-                            @foreach ($artist['tags']['tag'] as $tag)
-                                <a class="btn btn-info pr-3" href="{{ $tag['url'] }}">
-                                    {{ $tag['name'] }}
-                                </a>
-                            @endforeach
+                            </ul>
 
                         </div>
                     @endforeach

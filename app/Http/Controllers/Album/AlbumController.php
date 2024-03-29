@@ -38,25 +38,28 @@ class AlbumController extends Controller
         return response()->json($albumsData['results']['albummatches']['album']);
     }
 
-    public function show(Request $request, $query)
+    public function show(Request $request, $artist, $album)
     {
-        $album = urldecode($query);
+        
+        $artistPara = urldecode($artist);
+        $albumPara = urldecode($album);
 
         $response = $this->client->request('GET', 'http://ws.audioscrobbler.com/2.0/', [
             'query' => [
                 'method' => 'album.getinfo',
                 'api_key' => $this->apiKey,
-                'artist' => $album,
-                'album' => $album,
+                'artist' => $artistPara,
+                'album' => $albumPara,
                 'format' => 'json'
             ]
         ]);
 
         $albumsData = json_decode($response->getBody(), true);
 
+        // dd($albumsData);
 
         return view('albums.show', [
-            'albums' => $albumsData
+            'albums' => $albumsData,
         ]);
     }
 }

@@ -35,6 +35,6 @@ Route::get('/artists/show/{artist}', [ArtistController::class, 'show']);
 
 Route::get('/albums', [AlbumController::class, 'index'])->name('albums');
 Route::get('/albums/{query}', [AlbumController::class, 'search'])->name('albums.search');
-Route::get('/album/show/{album}', [AlbumController::class, 'show']);
+Route::get('/album/show/{artist}/{album}', [AlbumController::class, 'show']);
 
 Route::view('/{any?}', 'welcome')->name('welcome')->where('any','.*');
