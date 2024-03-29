@@ -75,7 +75,7 @@
                             <ul class="list-inline mr-3">
                                 @foreach ($artist['tags']['tag'] as $tag)
                                     <li class="list-inline-item mt-2"><a class="btn btn-outline-secondary"
-                                            href="{{ $tag['url'] }}">
+                                            href="{{ $tag['url'] }}" target="__blank">
                                             {{ $tag['name'] }}
                                         </a></li>
                                 @endforeach
