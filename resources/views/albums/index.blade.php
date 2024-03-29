@@ -11,3 +11,12 @@
         </div>
     </div>
 @endsection
+@section('footer')
+    <script>
+        if (performance.navigation.type === 2) {
+            window.onload = function() {
+                location.reload();
+            };
+        }
+    </script>
+@endsection

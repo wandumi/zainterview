@@ -6,7 +6,7 @@
             <div class="col-md-12">
                 <div class="row">
                     @foreach ($albums as $album)
-                        <div class="col-xl-12 mb-5">
+                        <div class="col-md-12 mb-5">
                             <div class="card">
                                 <div class="card-body pb-0">
                                     <div class="row align-items-center">
@@ -63,35 +63,38 @@
                                 <h3>Tracklist</h3>
                                 <ul class="row list-unstyled mb-0">
 
-                                    @if ($album['tracks']['track'])
+                                    @if (isset($album['tracks']['track']) && $album['tracks']['track'] == true)
                                         @foreach ($album['tracks']['track'] as $track)
                                             <li class="col-md-12 mt-3">
                                                 <a href="{{ $track['url'] ?? '' }}" class="text-decoration-none"
                                                     target="__blank">
                                                     <div class="card mb-0 p-3 ">
-                                                        <div class="d-md-flex justify-content-between">
-
-                                                            <p><span class="fw-bold">TrackName:</span>
-                                                                {{ $track['name'] ?? '' }}
-                                                            </p>
-                                                            <p><span class="fw-bold">ArtistName:</span>
-                                                                {{ $track['artist']['name'] ?? '' }}
-                                                            </p>
-
-                                                            <p><span class="fw-bold">Time:
-                                                                </span>{{ timeFormat($track['duration'] ?? '') }}
-                                                            </p>
-                                                            <p><span class="fw-bold">Rank:
-                                                                </span>{{ $track['@attr']['rank'] ?? '' }}</p>
-
-
-                                                        </div>
+                                                        <table>
+                                                            <thead>
+                                                                <tr>
+                                                                    <th class="fw-bold" style="width: 40%;">TrackName:
+                                                                    </th>
+                                                                    <th class="fw-bold" style="width: 40%;">ArtistName:
+                                                                    </th>
+                                                                    <th class="fw-bold" style="width: 10%;">Time:</th>
+                                                                    <th class="fw-bold" style="width: 10%;">Rank:</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td>{{ $track['name'] ?? '' }}</td>
+                                                                    <td>{{ $track['artist']['name'] ?? '' }}</td>
+                                                                    <td>{{ timeFormat($track['duration'] ?? '') }}</td>
+                                                                    <td>{{ $track['@attr']['rank'] ?? '' }}</td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
                                                     </div>
                                                 </a>
                                             </li>
                                         @endforeach
                                     @else
-                                        <p>There is no tracklist</p>
+                                        <h5 class="text-center fw-bold">There is no tracklist</h5>
                                     @endif
 
                                 </ul>
@@ -102,4 +105,16 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('footer')
+    <script>
+        window.onload = function() {
+            // Override the back button function
+            history.pushState(null, null, location.href);
+            window.onpopstate = function() {
+                history.go(1);
+            };
+        };
+    </script>
 @endsection

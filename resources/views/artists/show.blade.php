@@ -29,16 +29,16 @@
                                                 </div>
                                                 <div class="row my-4">
                                                     <div class="col-md-12">
-                                                        <div>
-                                                            <p class="text-muted mb-2 fw-medium"><span class="fw-bold">Total
-                                                                    Listeners</span> :
-                                                                {{ $artist['stats']['listeners'] }}
-                                                            </p>
-                                                            <p class="text-muted fw-medium mb-0"><span class="fw-bold">Play
-                                                                    Count</span> :
-                                                                {{ $artist['stats']['playcount'] }}
-                                                            </p>
-                                                        </div>
+
+                                                        <p class="text-muted fw-medium"><span class="fw-bold">Total
+                                                                Listeners</span> :
+                                                            {{ $artist['stats']['listeners'] }}
+                                                        </p>
+                                                        <p class="text-muted fw-medium mb-0"><span class="fw-bold">Play
+                                                                Count</span> :
+                                                            {{ $artist['stats']['playcount'] }}
+                                                        </p>
+
                                                     </div>
                                                 </div>
 
@@ -71,14 +71,18 @@
                             </ul>
                         </div>
                         <div class="col-xl-12">
-                            <h3 class="mt-4">Tags</h3>
+                            <h3 class="mt-5">Tags</h3>
                             <ul class="list-inline mr-3">
-                                @foreach ($artist['tags']['tag'] as $tag)
-                                    <li class="list-inline-item mt-2"><a class="btn btn-outline-secondary"
-                                            href="{{ $tag['url'] }}" target="__blank">
-                                            {{ $tag['name'] }}
-                                        </a></li>
-                                @endforeach
+                                @if ($artist['tags']['tag'] !== '' && $artist['tags']['tag'] == true)
+                                    @foreach ($artist['tags']['tag'] as $tag)
+                                        <li class="list-inline-item"><a class="btn btn-outline-secondary"
+                                                href="{{ $tag['url'] }}" target="__blank">
+                                                {{ $tag['name'] }}
+                                            </a></li>
+                                    @endforeach
+                                @else
+                                    <h5 class="text-center fw-bold">There are no Tags</h5>
+                                @endif
 
                             </ul>
 
