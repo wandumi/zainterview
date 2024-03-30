@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Album;
 
+use App\Models\Albums;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -38,9 +39,52 @@ class AlbumController extends Controller
         return response()->json($albumsData['results']['albummatches']['album']);
     }
 
-    public function show(Request $request, $artist, $album)
+    public function show($artist, $album)
     {
-        
+
+        $albums = $this->album_search($artist, $album);
+        $albumsData = $albums->getData(true);
+
+        return view('albums.show', [
+            'albums' => $albumsData['albums'],
+        ]);
+    }
+
+    /**
+     * Store the artist details.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        $albums = Albums::where('name', $request->name)->first();
+
+
+        if($albums){
+            return response()->json([
+                'message' => 'Already Saved',
+                'album' => $albums], 422);
+        } 
+
+        $album = Albums::create([
+            'name' => $request->name,
+            'artist' => $request->artist,
+            'image' => $request->image,
+            'url' => $request->url,
+            'user_id' => auth()->user()->id,
+        ]);
+
+        return response()->json([
+            'message' => 'Album created successfully',
+            'album' => $album], 201);
+
+       
+    
+    }
+
+    public function search_album($artist, $album)
+    {
         $artistPara = urldecode($artist);
         $albumPara = urldecode($album);
 
@@ -56,10 +100,12 @@ class AlbumController extends Controller
 
         $albumsData = json_decode($response->getBody(), true);
 
-        // dd($albumsData);
+        $album = $albumsData['album'];
 
-        return view('albums.show', [
+        return response()->json([
             'albums' => $albumsData,
+            'albumJson' => $album
         ]);
+       
     }
 }

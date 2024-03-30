@@ -5,7 +5,7 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="row">
-                    <search-albums></search-albums>
+                    <search-albums :user-auth="{{ auth()->user()->id ?? 0 }}"></search-albums>
                 </div>
             </div>
         </div>

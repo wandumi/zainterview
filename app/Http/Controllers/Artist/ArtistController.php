@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Artist;
 
+use App\Models\User;
+use App\Models\Artists;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -59,8 +61,50 @@ class ArtistController extends Controller
      */
     public function show(Request $request, $query)
     {
-        $artist = urldecode($query);
+        $artists = $this->search_artist($query);
+        $artistArr = $artists->getData(true);
+
+        return view('artists.show', [
+            'artists' => $artistArr['artistsData']
+        ]);
+    }
+
+    /**
+     * Store the artist details.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        $artist = Artists::where('name', $request->name)->first();
+
+        if($artist){
+            return response()->json([
+                'message' => 'Already Saved',
+                'artist' => $artist], 422);
+       
+        } 
+
+        $artist = Artists::create([
+            'name' => $request->name,
+            'image' => $request->image,
+            'summary' => $request->summary,
+            'user_id' => auth()->user()->id,
+        ]);
+
+        return response()->json([
+            'message' => 'Album created successfully',
+            'artist' => $artist], 201);
+
         
+    
+    }
+
+    function search_artist($query){
+
+        $artist = urldecode($query);
+
         $response = $this->client->request('GET', 'http://ws.audioscrobbler.com/2.0/', [
             'query' => [
                 'method' => 'artist.getinfo',
@@ -70,10 +114,15 @@ class ArtistController extends Controller
             ]
         ]);
 
-        $artistData = json_decode($response->getBody(), true);
+        $data = json_decode($response->getBody(), true);
 
-        return view('artists.show', [
-            'artists' => $artistData
+        $artists = $data['artist'];
+
+        return response()->json([
+            'artistsData' => $data,
+            'artistJson' => $artists
         ]);
     }
+
+
 }

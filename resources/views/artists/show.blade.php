@@ -12,12 +12,10 @@
                                     <div class="row align-items-center">
                                         <div class="col-md-3">
                                             <div class="text-center border-end">
-
                                                 <img src="{{ $artist['image'][1]['#text'] }}"
-                                                    class="img-fluid avatar-xxl rounded-circle" alt="">
+                                                    class="img-fluid avatar-xxl" alt="{{ $artist['name'] }}">
                                                 <h4 class="text-primary font-size-20 mt-3 mb-2"> {{ $artist['name'] }}
                                                 </h4>
-
                                             </div>
                                         </div>
                                         <div class="col-md-9">
@@ -25,11 +23,9 @@
                                                 <div>
                                                     <h4 class="card-title mb-2">Biography</h4>
                                                     <p>{{ $artist['bio']['summary'] }}</p>
-
                                                 </div>
                                                 <div class="row my-4">
                                                     <div class="col-md-12">
-
                                                         <p class="text-muted fw-medium"><span class="fw-bold">Total
                                                                 Listeners</span> :
                                                             {{ $artist['stats']['listeners'] }}
@@ -38,10 +34,8 @@
                                                                 Count</span> :
                                                             {{ $artist['stats']['playcount'] }}
                                                         </p>
-
                                                     </div>
                                                 </div>
-
                                             </div>
                                         </div>
 
@@ -73,7 +67,7 @@
                         <div class="col-xl-12">
                             <h3 class="mt-5">Tags</h3>
                             <ul class="list-inline mr-3">
-                                @if ($artist['tags']['tag'] !== '' && $artist['tags']['tag'] == true)
+                                @if ($artist['tags']['tag'] !== '' && $artist['tags']['tag'])
                                     @foreach ($artist['tags']['tag'] as $tag)
                                         <li class="list-inline-item"><a class="btn btn-outline-secondary"
                                                 href="{{ $tag['url'] }}" target="__blank">

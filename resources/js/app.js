@@ -11,3 +11,4 @@ app.component('search-albums', SearchAlbums);
 
 
 app.mount('#app');
+

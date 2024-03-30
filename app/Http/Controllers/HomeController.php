@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Albums;
+use App\Models\Artists;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,6 +25,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $artists = Artists::where('user_id', Auth()->user()->id)->get();
+        $albums = Albums::where('user_id', Auth()->user()->id)->get();
+        
+        return view('home', compact('artists','albums'));
     }
 }

@@ -13,20 +13,16 @@
                                         <div class="col-md-3">
                                             <div class="text-center border-end">
 
-                                                <img src="{{ $album['image'][1]['#text'] }}"
-                                                    class="img-fluid avatar-xxl rounded-circle" alt="">
+                                                <img src="{{ $album['image'][1]['#text'] }}" class="img-fluid avatar-xxl"
+                                                    alt="">
                                                 <h4 class="text-primary font-size-20 mt-3 mb-2"> {{ $album['name'] }}
                                                 </h4>
-
-
                                             </div>
                                         </div>
                                         <div class="col-md-9">
-                                            <div class="ms-3">
+                                            <div class="ms-3 mx-auto">
                                                 <div>
                                                     <h4 class="card-title mb-2">Biography</h4>
-
-
                                                 </div>
                                                 <div class="row my-4">
                                                     <div class="col-md-12">
@@ -63,7 +59,7 @@
                                 <h3>Tracklist</h3>
                                 <ul class="row list-unstyled mb-0">
 
-                                    @if (isset($album['tracks']['track']) && $album['tracks']['track'] == true)
+                                    @if (isset($album['tracks']['track']) && $album['tracks']['track'])
                                         @foreach ($album['tracks']['track'] as $track)
                                             <li class="col-md-12 mt-3">
                                                 <a href="{{ $track['url'] ?? '' }}" class="text-decoration-none"
@@ -72,12 +68,12 @@
                                                         <table>
                                                             <thead>
                                                                 <tr>
-                                                                    <th class="fw-bold" style="width: 40%;">TrackName:
+                                                                    <th class="fw-bold" style="width: 40%;">TrackName
                                                                     </th>
-                                                                    <th class="fw-bold" style="width: 40%;">ArtistName:
+                                                                    <th class="fw-bold" style="width: 40%;">ArtistName
                                                                     </th>
-                                                                    <th class="fw-bold" style="width: 10%;">Time:</th>
-                                                                    <th class="fw-bold" style="width: 10%;">Rank:</th>
+                                                                    <th class="fw-bold" style="width: 10%;">Time</th>
+                                                                    <th class="fw-bold" style="width: 10%;">Rank</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>

@@ -35,5 +35,9 @@ return [
         'client_secret' => env('GOOGLE_CLIENT_SECRET'),
         'redirect' => env('GOOGLE_REDIRECT_URI'),
     ],
+    'last_fm' => [
+        'api_key' => env('FM_API_KEY'),
+        'shared_secret' => env('FM_SHARED_SECRET'),
+    ]
 
 ];

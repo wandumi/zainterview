@@ -1,7 +1,7 @@
 <?php
 
 if (!function_exists('timeFormat')) {
-    function timeFormat($durationInSeconds)
+    function timeFormat($durationInSeconds): string
     {
         $minutes = floor((int) $durationInSeconds / 60);
         $seconds = (int) $durationInSeconds % 60;
