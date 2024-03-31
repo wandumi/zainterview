@@ -79,26 +79,26 @@ class ArtistController extends Controller
     {
         $artist = Artists::where('name', $request->name)->first();
 
-        if($artist){
-            return response()->json([
-                'message' => 'Already Saved',
-                'artist' => $artist], 422);
-       
-        } 
+        if(!$artist){
+            $artist = Artists::create([
+                'name' => $request->name,
+                'image' => $request->image,
+                'summary' => $request->summary,
+                'user_id' => auth()->user()->id,
+            ]);
 
-        $artist = Artists::create([
-            'name' => $request->name,
-            'image' => $request->image,
-            'summary' => $request->summary,
-            'user_id' => auth()->user()->id,
-        ]);
+            return response()->json([
+                'message' => 'Album created successfully',
+                'artist' => $artist], 201);
+
+        }
+
 
         return response()->json([
-            'message' => 'Album created successfully',
-            'artist' => $artist], 201);
+            'message' => 'Already Saved',
+            'artist' => $artist], 422);
 
-        
-    
+
     }
 
     function search_artist($query){
@@ -122,6 +122,20 @@ class ArtistController extends Controller
             'artistsData' => $data,
             'artistJson' => $artists
         ]);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        $artist = Artists::findOrFail($id);
+        $artist->delete();
+
+        return redirect('/dashboard')->with('success', 'Favourite Artist was removed successfully');
     }
 
 

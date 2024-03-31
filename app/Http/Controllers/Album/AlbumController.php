@@ -58,28 +58,28 @@ class AlbumController extends Controller
      */
     public function store(Request $request)
     {
+
         $albums = Albums::where('name', $request->name)->first();
 
+        if(!$albums){
+            $album = Albums::create([
+                'name' => $request->name,
+                'artist' => $request->artist,
+                'image' => $request->image,
+                'url' => $request->url,
+                'user_id' => auth()->user()->id,
+            ]);
 
-        if($albums){
             return response()->json([
-                'message' => 'Already Saved',
-                'album' => $albums], 422);
+                'message' => 'Album created successfully',
+                'album' => $album], 201);
+
         }
 
-        $album = Albums::create([
-            'name' => $request->name,
-            'artist' => $request->artist,
-            'image' => $request->image,
-            'url' => $request->url,
-            'user_id' => auth()->user()->id,
-        ]);
 
         return response()->json([
-            'message' => 'Album created successfully',
-            'album' => $album], 201);
-
-
+            'message' => 'Already Saved',
+            'album' => $albums], 422);
 
     }
 
@@ -107,5 +107,19 @@ class AlbumController extends Controller
             'albumJson' => $album
         ]);
 
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        $album = Albums::findOrFail($id);
+        $album->delete();
+
+        return redirect('/dashboard')->with('success', 'Favourite Album was removed successfully');
     }
 }
