@@ -15,12 +15,21 @@
                             </div>
                         @endif
 
+                        <!-- Your HTML code -->
+                        @if(session('success'))
+                            <div class="alert alert-success">
+                                {{ session('success') }}
+                            </div>
+                        @endif
+
+
                     </div>
                     <div class="col-xl-12">
                         <h3 class="mb-3">Favourite Artists</h3>
                         <ul class="row list-unstyled mb-0">
                             @if (!$artists->isEmpty())
                                 @foreach ($artists as $artist)
+
                                     <li class="col-md-3 mt-3">
                                         <div class="card mb-0">
                                             <img class="image-responsive" src="{{ $artist->image }}" alt="">
@@ -29,7 +38,18 @@
                                                     class="card-title title-link text-center fw-bold text-decoration-none">
                                                     {{ $artist->name }}
                                                 </a>
+                                                <div class="mt-3">
+                                                    <form method="POST" action="/artists/{{ $artist->id }}">
+                                                        {{ csrf_field() }}
+                                                        {{ method_field('DELETE') }}
 
+                                                        <div class="form-group">
+                                                            <input type="submit" class="btn btn-sm btn-danger btn-block delete_item"
+                                                                   value="Remove Artist">
+                                                        </div>
+                                                    </form>
+
+                                                </div>
                                             </div>
                                         </div>
                                     </li>
@@ -53,7 +73,18 @@
                                                     class="card-title title-link text-center fw-bold text-decoration-none">
                                                     {{ $album->name }}
                                                 </a>
+                                                <div class="mt-3">
+                                                    <form method="POST" action="/albums/{{ $album->id }}">
+                                                        {{ csrf_field() }}
+                                                        {{ method_field('DELETE') }}
 
+                                                        <div class="form-group">
+                                                            <input type="submit" class="btn btn-sm btn-danger btn-block
+                                                                   delete_item" value="Remove Album">
+                                                        </div>
+                                                    </form>
+
+                                                </div>
                                             </div>
                                         </div>
                                     </li>
@@ -68,4 +99,25 @@
             </div>
         </div>
     </div>
+@endsection
+@section('footer')
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            let deleteArtistAlbum = document.querySelector(".delete_item");
+
+            deleteArtistAlbum.forEach(deleteButton => {
+                deleteButton.addEventListener("click", function (event) {
+                    console.log("button")
+                    event.preventDefault();
+                    if (confirm('Are you sure?')) {
+
+                        let form = e.target.closest('form');
+                        if (form) {
+                            form.submit();
+                        }
+                    }
+                });
+            });
+        });
+    </script>
 @endsection
