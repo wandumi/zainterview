@@ -42,7 +42,7 @@ class AlbumController extends Controller
     public function show($artist, $album)
     {
 
-        $albums = $this->album_search($artist, $album);
+        $albums = $this->search_album($artist, $album);
         $albumsData = $albums->getData(true);
 
         return view('albums.show', [
@@ -65,7 +65,7 @@ class AlbumController extends Controller
             return response()->json([
                 'message' => 'Already Saved',
                 'album' => $albums], 422);
-        } 
+        }
 
         $album = Albums::create([
             'name' => $request->name,
@@ -79,8 +79,8 @@ class AlbumController extends Controller
             'message' => 'Album created successfully',
             'album' => $album], 201);
 
-       
-    
+
+
     }
 
     public function search_album($artist, $album)
@@ -106,6 +106,6 @@ class AlbumController extends Controller
             'albums' => $albumsData,
             'albumJson' => $album
         ]);
-       
+
     }
 }

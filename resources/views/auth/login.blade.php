@@ -13,8 +13,8 @@
                             <div class="row">
                                 <div class="text-center">
                                     <a href="/auth/google/redirect" class="btn btn-danger btn-block">
-                                        <i class="fa fa-google"></i> <img
-                                            src="https://img.icons8.com/color/16/000000/google-logo.png" class="">
+                                        <i class="fa fa-google bg-white"></i> <img
+                                            src="https://img.icons8.com/color/16/000000/google-logo.png" class="image-fluid bg-white p-2">
                                         Sign in with
                                         <b>Google</b></a>
 
